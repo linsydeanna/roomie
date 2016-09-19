@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 
-class SideNav extends Component {
+class Editor extends Component {
   render() {
     return (
-      <div className="SideNav">
+      <div className="Editor">
       </div>
     );
   }
 }
 
-export default SideNav;
+export default Editor;
