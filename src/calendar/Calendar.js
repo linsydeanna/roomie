@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 
-class SideNav extends Component {
+class Calendar extends Component {
   render() {
     return (
-      <div className="SideNav">
+      <div className="Calendar">
       </div>
     );
   }
 }
 
-export default SideNav;
+export default Calendar;

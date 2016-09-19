@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 
-class SideNav extends Component {
+class Chore extends Component {
   render() {
     return (
-      <div className="SideNav">
+      <div className="Chore">
       </div>
     );
   }
 }
 
-export default SideNav;
+export default Chore;
