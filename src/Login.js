@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles/Login.css';
 import {Link} from 'react-router'
 import Rebase from 're-base'
 
-class App extends Component {
+class Login extends Component {
  render() {
    return (
-     <div className="App">
-       {this.props.children}
+     <div className="Login">
+     Login Component
      </div>
    );
  }
 }
 
-export default App;
+export default Login;
