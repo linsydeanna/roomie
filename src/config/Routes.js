@@ -1,11 +1,9 @@
 import React from 'react';
-import {Router, Route, hashHistory, IndexRoute, IndexRedirect} from 'react-router'
+import {Router, Route, hashHistory, IndexRoute} from 'react-router'
 import Login from '../Login'
 import RegistrationForm from '../RegistrationForm'
 import App from '../App'
-import Dashboard from '../Dashboard'
-
-
+import DashboardContainer from '../DashboardContainer'
 
 const routes = (
  <Router history={hashHistory}>
