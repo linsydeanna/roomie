@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 
-class App extends Component {
+class Day extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="Day">
       </div>
     );
   }
 }
 
-export default App;
+export default Day;
