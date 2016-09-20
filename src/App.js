@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import './App.css';
-import {Link} from 'react-router'
-import Rebase from 're-base'
+import './styles/App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        {this.props.children}
-      </div>
-    );
-  }
+ render() {
+   return (
+     <div className="App">
+       {this.props.children}
+     </div>
+   );
+ }
 }
 
 export default App;
