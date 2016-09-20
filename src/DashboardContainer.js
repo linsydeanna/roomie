@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import './styles/App.css';
+import SideNav from './SideNav'
+import Room from './room/Room';
 
 class DashboardContainer extends Component {
   render() {
     return (
       <div className="DashboardContainer">
-        DashboardContainer
+        <SideNav />
+        <Room />
       </div>
     );
   }

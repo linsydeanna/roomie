@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
+import Chore from './Chore'
+import '../styles/ChoreView.css'
 
 class Room extends Component {
   render() {
     return (
       <div className="Room">
+      <Chore />
       </div>
     );
   }
