@@ -84,8 +84,6 @@ if (this.state.showAddRoomBox) {
           </div>
             <div className="NavRooms">
               <div>
-                <p>Kitchen</p>
-                <p>Bathroom</p>
                 {this.state.rooms.map((room, index) => <div onClick={this.onRoomClick.bind(this)} key={index}><p>{room}</p></div>)}
               </div>
               {addRoomBox}

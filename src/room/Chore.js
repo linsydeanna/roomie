@@ -9,36 +9,48 @@ const base = Rebase.createClass({
   });
 
 class Chore extends Component {
-  constructor() {
-    super();
-    this.state = {
-      displayInput: false
+    constructor(){
+      super();
+      this.state = {
+        chore: {}
+      }
     }
-  }
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     displayInput: true
+  //   }
+  // }
 
-  changeToInput() {
-    console.log(this.state)
-    this.setState({
-      displayInput: !this.state.displayInput
-    })
-  }
+  // changeToInput() {
+  //   console.log(this.state)
+  //   this.setState({
+  //     displayInput: !this.state.displayInput
+  //   })
+  // }
 
-  addChore() {
-    event.preventDefault()
-    console.log("AddChore button works")
-    let input = this.refs.input
-    let addedChore = input.value
-    let chores = this.state.chores
-    this.setState({
-      chores: chores.concat([addedChore])
-    })
-  }
+  // addChore() {
+  //   console.log("AddChore button works")
+  //   let input = this.refs.input
+  //   let addedChore = input.value
+  //   let chores = this.state.chores
+  //   this.setState({
+  //     chores: chores.concat([addedChore]),
+  //     displayInput: !this.state.displayInput
+  //   })
+  // }
+
+  // handleSubmit(event) {
+  //   event.preventDefault()
+  //   let name = this.name
+  //   this.addChore(name.value)
+  // }
 
   componentDidMount() {
-    this.rebaseRef = base.syncState('chores', {
+    this.rebaseRef = base.syncState(`houseone/rooms/kitchen/chores/${this.props.name}`, {
       context: this,
-      state: 'chores',
-      asArray: true,
+      state: 'chore',
+      // asArray: true
     })
   }
 
@@ -46,18 +58,20 @@ class Chore extends Component {
     base.removeBinding(this.rebaseRef)
   }
 
+  // let choreInputArea = <div onClick={this.changeToInput.bind(this)} className="ChoreName">
+  //   <p>{this.props.name}</p>
+  // </div>
+  // if (this.state.displayInput) {
+  // choreInputArea = <form onSubmit={this.handleSubmit.bind(this)}><input type="text" ref={(input) => this.name = input}/><button>Add Chore</button></form>
+  // }
+
+  // {choreInputArea}
+
   render() {
-    let choreInputArea = <div onClick={this.changeToInput.bind(this)} className="ChoreName">
-      <p>{this.props.name}</p>
-    </div>
-    if (this.state.displayInput) {
-    choreInputArea = <form onSubmit={this.addChore.bind(this)}><input type="text" ref="input"/><button>Add Chore</button></form>
-    }
-    console.log(this.props)
     return (
       <div className="Chore">
         <div className="ChoreLeft">
-          {choreInputArea}
+          {this.state.chore.name}
           <div className="Frequency">
           </div>
         </div>

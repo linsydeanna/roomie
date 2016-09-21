@@ -1,36 +1,41 @@
 import React, { Component } from 'react';
 import Chore from './Chore'
 import '../styles/ChoreView.css'
+import Rebase from 're-base'
 
-const chores = [
-  {
-    name: 'dishes',
-    isCompleted: false
-  }
-]
+const base = Rebase.createClass({
+    apiKey: "AIzaSyDnoxYjmFPcZSQWKRNlebHr9n0pkSGOyUw",
+    authDomain: "final-project-34471.firebaseapp.com",
+    databaseURL: "https://final-project-34471.firebaseio.com",
+    storageBucket: "final-project-34471.appspot.com",
+  });
 
 class Room extends Component {
   constructor(props){
     super(props);
     this.state = {
-      chores
+      chores: []
     }
   }
 
-  getChores() {
-    return this.state.chores.map((choreAdded, index) => {
-      return (<Chore name={choreAdded.name} isCompleted={choreAdded.isCompleted} key={index}/>)
+  componentDidMount() {
+    base.fetch(`houseone/rooms/kitchen/chores`, {
+      context: this,
+      asArray: true,
+      then(data){
+        console.log(data)
+        this.setState({
+          chores: data
+        })
+      }
     })
   }
 
-
   render() {
-
-    const chores = this.getChores()
 
     return (
       <div className="Room">
-        {chores}
+        {this.state.chores.map((chore) => <Chore name={chore.key} key={chore.key}/>)}
       </div>
     );
   }
