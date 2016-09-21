@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import AddRoom from './room/AddRoom'
 import Rebase from 're-base'
+// import {Link} from 'react-router'
 import './styles/SideNav.css';
 
 const base = Rebase.createClass({
@@ -50,6 +50,11 @@ addRoom() {
   })
 }
 
+onRoomClick() {
+  event.preventDefault()
+  console.log("onRoomClick is working")
+}
+
   render() {
 
     let addRoomBox;
@@ -81,7 +86,7 @@ if (this.state.showAddRoomBox) {
               <div>
                 <p>Kitchen</p>
                 <p>Bathroom</p>
-                {this.state.rooms.map((room, index) => <p key={index}>{room}</p>)}
+                {this.state.rooms.map((room, index) => <div onClick={this.onRoomClick.bind(this)} key={index}><p>{room}</p></div>)}
               </div>
               {addRoomBox}
             </div>
