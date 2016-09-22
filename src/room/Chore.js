@@ -46,18 +46,6 @@ class Chore extends Component {
   //   this.addChore(name.value)
   // }
 
-  componentDidMount() {
-    this.rebaseRef = base.syncState(`houseone/rooms/kitchen/chores/${this.props.name}`, {
-      context: this,
-      state: 'chore',
-      // asArray: true
-    })
-  }
-
-  componentWillUnmount() {
-    base.removeBinding(this.rebaseRef)
-  }
-
   // let choreInputArea = <div onClick={this.changeToInput.bind(this)} className="ChoreName">
   //   <p>{this.props.name}</p>
   // </div>
@@ -71,8 +59,9 @@ class Chore extends Component {
     return (
       <div className="Chore">
         <div className="ChoreLeft">
-          {this.state.chore.name}
+          {this.props.chore.name}
           <div className="Frequency">
+            {this.props.chore.frequency}
           </div>
         </div>
         <div className="Avatar">

@@ -20,10 +20,10 @@ class SideNav extends Component {
   }
 
   componentDidMount() {
-    this.rebaseRef = base.syncState('rooms', {
+    this.rebaseRef = base.syncState(`houseone/rooms`, {
       context: this,
       state: 'rooms',
-      asArray: true,
+      asArray: true
     })
   }
 
@@ -67,7 +67,6 @@ if (this.state.showAddRoomBox) {
     </form>
   </div>
 }
-
     return (
       <div className="SideNav">
         ChoreShare
@@ -84,7 +83,7 @@ if (this.state.showAddRoomBox) {
           </div>
             <div className="NavRooms">
               <div>
-                {this.state.rooms.map((room, index) => <div onClick={this.onRoomClick.bind(this)} key={index}><p>{room}</p></div>)}
+                {this.state.rooms.map((room, index) => <div onClick={this.onRoomClick.bind(this)} key={index}><p>{room.key}</p></div>)}
               </div>
               {addRoomBox}
             </div>
