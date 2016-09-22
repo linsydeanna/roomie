@@ -14,28 +14,29 @@ class Room extends Component {
   constructor(props){
     super(props);
     this.state = {
-      chores: []
+      chores: [],
+      chore: {}
     }
   }
 
   componentDidMount() {
-    base.fetch(`houseone/rooms/kitchen/chores`, {
+    this.rebaseRef = base.syncState(`houseone/rooms/kitchen/chores`, {
       context: this,
+      state: 'chores',
       asArray: true,
-      then(data){
-        console.log(data)
-        this.setState({
-          chores: data
-        })
-      }
     })
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.rebaseRef)
   }
 
   render() {
 
     return (
       <div className="Room">
-        {this.state.chores.map((chore) => <Chore name={chore.key} key={chore.key}/>)}
+        {this.state.chores.map((chore) => <Chore chore={chore} key={chore.key}/>)}
+        <button onClick={this.addChore.bind(this)}>Add Chore</button>
       </div>
     );
   }
