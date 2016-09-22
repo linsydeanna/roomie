@@ -59,8 +59,10 @@ class Chore extends Component {
     return (
       <div className="Chore">
         <div className="ChoreLeft">
+          <div className="ChoreName">
           {this.props.chore.name}
-          <div className="Frequency">
+          </div>
+          <div className="ChoreFrequency">
             {this.props.chore.frequency}
           </div>
         </div>
