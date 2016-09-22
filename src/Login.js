@@ -29,16 +29,17 @@ class Login extends Component {
 
      console.log(user.user.photoURL)
       this.context.router.push('/registration')
-      localStorage.setItem('fbAvatar', user.user.photoURL)
-   }
 
+   }
  }
+
 
  handleClick(event) {
    event.preventDefault();
+   console.log("working")
    base.authWithOAuthPopup('facebook', this.authHandler)
    .then(() => {
-     base.post(`housetwo/${this.state.user.user.uid}`, {
+     base.post(`housetwo/roommates/${this.state.user.user.uid}`, {
        data: {
         userName: this.state.user.user.displayName,
         url: this.state.user.user.photoURL

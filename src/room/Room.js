@@ -36,7 +36,7 @@ class Room extends Component {
     return (
       <div className="Room">
         {this.state.chores.map((chore) => <Chore chore={chore} key={chore.key}/>)}
-        <button onClick={this.addChore.bind(this)}>Add Chore</button>
+        <button>Add Chore</button>
       </div>
     );
   }

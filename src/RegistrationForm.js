@@ -13,24 +13,28 @@ const base = Rebase.createClass({
 
 
 class RegistrationForm extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     userID: '',
-  //     userInfo: {}
-  //   }
-  // }
-  //
-  // componentDidMount() {
-  //   this.rebaseRef = base.syncState('userInfo', {
-  //     context: this,
-  //     state: 'userInfo',
-  //   })
-  // }
-  //
-  // componentWillUnmount() {
-  //   base.removeBinding(this.rebaseRef)
-  // }
+  constructor() {
+    super();
+    this.state = {
+      urls: [],
+      url: {}
+    }
+  }
+
+
+  componentDidMount() {
+    this.rebaseRef = base.syncState(`housetwo/${this.state.user.user.UID}/url`, {
+      context: this,
+      state: 'urls',
+      asArray: true,
+    })
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.rebaseRef)
+  }
+
+
   // handleClick(event) {
   //   event.preventDefault();
   //   console.log("Is button working")
@@ -64,7 +68,7 @@ render() {
       <div className="profileInfo">
         <div className="imageBox">
         <p>Profile Avatar</p>
-        <img src={localStorage.fbAvatar} />
+        <img src={this.state.urls.map((url) => <url url={url} key={url.key}/>)} />
         </div>
         <p>Date of move-in:</p>
           <input
