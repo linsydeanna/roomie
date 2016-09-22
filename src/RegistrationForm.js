@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './styles/RegistrationForm.css';
 import moment from 'moment'
 import Rebase from 're-base'
+import {hashHistory, Link} from 'react-router'
 
 const base = Rebase.createClass({
     apiKey: "AIzaSyDnoxYjmFPcZSQWKRNlebHr9n0pkSGOyUw",
@@ -62,8 +63,8 @@ render() {
       </div>
       <div className="profileInfo">
         <div className="imageBox">
-        <p>Upload picture or import from Facebook</p>
-        <input type="text" className="imageUpload" placeholder="Select Image"/>
+        <p>Profile Avatar</p>
+        <img src={localStorage.fbAvatar} />
         </div>
         <p>Date of move-in:</p>
           <input
@@ -83,9 +84,11 @@ render() {
         <p>Pet peeves:</p>
         <input type="text" className="answerBox" placeholder="Enter Answer"ref="peevesInput"/>
       </div>
+      <Link to="/dashboard">
       <div className="submitBtn">
         <button onClick={this.handleClick}>Submit</button>
       </div>
+    </Link>
     </div>
 
   );

@@ -73,9 +73,20 @@ class Chore extends Component {
         <div className="ChoreLeft">
           {this.state.chore.name}
           <div className="Frequency">
+            {this.state.chore.frequency}
+          </div>
+          <div className="Description">
+            {this.state.chore.description}
+          </div>
+          <div className="ClaimedBy">
+            {this.state.chore.claimedBy}
+          </div>
+          <div className="isComplete">
+            {this.state.chore.isComplete}
           </div>
         </div>
         <div className="Avatar">
+          <img src={localStorage.fbAvatar} />
         </div>
       </div>
     );
