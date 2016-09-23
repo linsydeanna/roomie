@@ -17,7 +17,6 @@ class Chore extends Component {
   }
 
   changeToInput() {
-    console.log(this.state)
     this.setState({
       displayInput: !this.state.displayInput
     })
