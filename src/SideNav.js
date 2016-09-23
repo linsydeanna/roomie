@@ -15,21 +15,45 @@ class SideNav extends Component {
     super();
     this.state = {
       showAddRoomBox: false,
-      rooms: []
+      rooms: [],
+      people: []
     }
   }
 
   componentDidMount() {
-    this.rebaseRef = base.syncState(`houseone/rooms`, {
+    this.rebaseRef = base.syncState(`housetwo/rooms`, {
       context: this,
       state: 'rooms',
       asArray: true
     })
+      this.rebaseRef = base.syncState(`housetwo/roommates`, {
+        context: this,
+        state: 'people',
+        asArray: true
+      })
+
   }
 
   componentWillUnmount() {
     base.removeBinding(this.rebaseRef)
   }
+
+
+  // componentDidMount() {
+  //   this.rebaseRef = base.syncState(`housetwo/roommates`, {
+  //     context: this,
+  //     state: 'people',
+  //     asArray: true
+  //   })
+  // }
+  //
+  // componentWillUnmount() {
+  //   base.removeBinding(this.rebaseRef)
+  // }
+
+
+
+
 
   handleClick() {
     event.preventDefault()
@@ -55,6 +79,8 @@ onRoomClick() {
   console.log("onRoomClick is working")
 }
 
+
+
   render() {
 
     let addRoomBox;
@@ -67,6 +93,7 @@ if (this.state.showAddRoomBox) {
     </form>
   </div>
 }
+console.log(this.state.people.map((person, index) => person.userName));
     return (
       <div className="SideNav">
         ChoreShare
@@ -76,6 +103,7 @@ if (this.state.showAddRoomBox) {
           </div>
           <div className="NavItems">
             <p>People</p>
+            {this.state.people.map((person, index) => <p className="roommates" key={index}>{person.userName}</p>)}
           </div>
           <div className="NavItems AddRooms">
             <p>Rooms</p>
