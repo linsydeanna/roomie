@@ -31,13 +31,43 @@ class Room extends Component {
     base.removeBinding(this.rebaseRef)
   }
 
+  addChore() {
+    event.preventDefault()
+    let chores = this.state.chores
+    let chore = {
+      name: this.name.value
+    }
+    console.log(chore)
+    this.setState({
+      chores: chores.concat([chore])
+    })
+  }
+
+  deleteChore(deletedChore){
+    event.preventDefault()
+    let chores = this.state.chores
+    this.setState({
+      chores: chores.filter(chore => deletedChore !== chore.name)
+  })
+}
+
   render() {
 
     return (
-      <div className="Room">
-        {this.state.chores.map((chore) => <Chore chore={chore} key={chore.key}/>)}
-        <button onClick={this.addChore.bind(this)}>Add Chore</button>
-      </div>
+        <div className="Room">
+          {this.state.chores.map((chore, index) => <Chore chore={chore} deleteChore={this.deleteChore.bind(this)} key={index}/>)}
+          <div className="Chore">
+          <div className="ChoreLeft">
+            <div className="ChoreName">
+            <form onSubmit={this.addChore.bind(this)}><input type="text" ref={(input) => this.name = input}/><button type="submit">Add Chore</button></form>
+            </div>
+            <div className="ChoreFrequency">
+            </div>
+          </div>
+          <div className="Avatar">
+          </div>
+        </div>
+        </div>
     );
   }
 }
