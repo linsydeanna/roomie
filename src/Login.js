@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './styles/Login.css';
 import base from './config/base'
 import './styles/App.css';
-import Rebase from 're-base'
+
 
 
 class Login extends Component {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './styles/RegistrationForm.css';
 import moment from 'moment'
 import Rebase from 're-base'
-import {hashHistory, Link} from 'react-router'
+import {Link} from 'react-router'
 
 const base = Rebase.createClass({
     apiKey: "AIzaSyDnoxYjmFPcZSQWKRNlebHr9n0pkSGOyUw",
@@ -68,7 +68,7 @@ render() {
       <div className="profileInfo">
         <div className="imageBox">
         <p>Profile Avatar</p>
-        <img src={this.state.urls.map((url) => <url url={url} key={url.key}/>)} />
+        <img src={this.state.urls.map((url) => <url url={url} key={url.key}/>)} alt="user avatar"  />
         </div>
         <p>Date of move-in:</p>
           <input
