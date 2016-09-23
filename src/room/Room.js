@@ -31,15 +31,8 @@ class Room extends Component {
     base.removeBinding(this.rebaseRef)
   }
 
-
-  // onSubmit={this.handleSubmit.bind(this)}
-
   addChore() {
     event.preventDefault()
-    console.log("this.name.value is", this.name.value)
-    console.log("this.state.chores is", this.state.chores)
-    console.log("this.state.chore is", this.state.chore)
-    let addedChore = this.name.value
     let chores = this.state.chores
     let chore = {
       name: this.name.value
@@ -49,23 +42,20 @@ class Room extends Component {
       chores: chores.concat([chore])
     })
   }
-//
-//   let input = this.refs.input
-//   let addedChore = this.name.value
-//   let chores = this.state.chores
-//   this.setState({
-//     chores: chores.concat([addedChore]),
-//     displayInput: !this.state.displayInput
-//   })
-//   let author = this.author
-// let body = this.body
-// this.props.addComment(author.value, body.value)
+
+  deleteChore(deletedChore){
+    event.preventDefault()
+    let chores = this.state.chores
+    this.setState({
+      chores: chores.filter(chore => deletedChore !== chore.name)
+  })
+}
 
   render() {
 
     return (
         <div className="Room">
-          {this.state.chores.map((chore, index) => <Chore chore={chore} key={index}/>)}
+          {this.state.chores.map((chore, index) => <Chore chore={chore} deleteChore={this.deleteChore.bind(this)} key={index}/>)}
           <div className="Chore">
           <div className="ChoreLeft">
             <div className="ChoreName">
