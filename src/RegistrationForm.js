@@ -1,7 +1,10 @@
+//mail rest api; f9050504f168667ea6771a3bc53bc724f4cdea8e
+
 import React, { Component } from 'react';
 import './styles/RegistrationForm.css';
 import moment from 'moment'
 import Rebase from 're-base'
+import axios from 'axios'
 import {Link} from 'react-router'
 
 const base = Rebase.createClass({
@@ -28,6 +31,7 @@ class RegistrationForm extends Component {
       state: 'urls',
       asArray: true,
     })
+    // console.log("household1", household)
   }
 
   componentWillUnmount() {
@@ -35,27 +39,61 @@ class RegistrationForm extends Component {
   }
 
 
-  // handleClick(event) {
-  //   event.preventDefault();
-  //   console.log("Is button working")
-  //   this.addUserInfo();
-  //   console.log("Does addUserInfo work")
-  // }
-  //
-  // addUserInfo() {
-  //   event.preventDefault()
-  //   console.log("Adding UserInfo to FireBase")
-  //   let preCInput = this.refs.preferredInput
-  //   let lCInput = this.refs.leastInput
-  //   let peeInput = this.refs.peevesInput
-  //   let addedUserInfo = input.value
-  //   let userInfo = this.state.userInfo
-  //   this.setState({
-  //     userInfo: userInfo.concat([addedUserInfo])
-  //   })
-  // }
-  //
-  //
+sendEmail() {
+  axios({
+    method: 'post',
+    url: 'https://api.sparkpost.com/api/v1/transmissions',
+    headers: {
+    'Authorization': 'f9050504f168667ea6771a3bc53bc724f4cdea8e',
+    'Content-Type': 'application/json'
+  },
+    data: {
+        "content": {
+        "from": "tiyfinalproject@gmail.com",
+        "subject": "Your personal invite to living better!",
+        "text": "Click here to view our app"
+      },
+      recipients: [{ "address": this.refs.roommateEmail }]
+   }
+ }).then(response => console.log(response))
+      console.log("show me the email");
+
+}
+
+// sendEmail() {
+//   axios({
+//     method: 'post',
+//     url: 'https://api.sparkpost.com/api/v1/transmissions',
+//     data: {
+//       "content": {
+//       "from": "tiyfinalproject@gmail.com",
+//       "subject": "Your personal invite to living better!",
+//       "text": "Click here to view our app"
+//     },
+//     "recipients": [{ "address": this.refs.roommateEmail }]
+//     }
+//   })
+// }
+
+
+
+
+//   https://api.sparkpost.com/api/v1/transmissions \
+//   -H "Authorization: f9050504f168667ea6771a3bc53bc724f4cdea8e" \
+//   -H "Content-Type: application/json" \
+//   -d '{
+//     "content": {
+//       "from": "sandbox@sparkpostbox.com",
+//       "subject": "Thundercats are GO!!!",
+//       "text": "Sword of Omens, give me sight BEYOND sight"
+//     },
+//     "recipients": [{ "address": "tiyfinalproject@gmail.com" }]
+//   }'
+// }
+
+
+
+  //end of email code
 
 
 
@@ -93,6 +131,15 @@ render() {
         <button onClick={this.handleClick}>Submit</button>
       </div>
     </Link>
+
+    <div className="emailBox">
+      <p>Enter new roommates email address and send them an invite</p>
+      <input type="text" className="emailInput" placeholder="New roommate" ref="roommateEmail"/>
+      <button onClick={() => this.sendEmail()}>Send Email</button>
+    </div>
+
+
+
     </div>
 
   );
