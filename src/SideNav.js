@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Rebase from 're-base'
-// import {Link} from 'react-router'
+import {Link, hashHistory} from 'react-router'
 import './styles/SideNav.css';
 
 const base = Rebase.createClass({
@@ -18,42 +18,25 @@ class SideNav extends Component {
       rooms: [],
       people: []
     }
+    console.log("sidenav this.props is", this.props)
   }
 
   componentDidMount() {
-    this.rebaseRef = base.syncState(`housetwo/rooms`, {
+    this.rebaseRef = base.syncState(`houseone/rooms`, {
       context: this,
       state: 'rooms',
       asArray: true
     })
-      this.rebaseRef = base.syncState(`housetwo/roommates`, {
+      this.rebaseRef = base.syncState(`houseone/roommates`, {
         context: this,
         state: 'people',
         asArray: true
       })
-
-  }
+    }
 
   componentWillUnmount() {
     base.removeBinding(this.rebaseRef)
   }
-
-
-  // componentDidMount() {
-  //   this.rebaseRef = base.syncState(`housetwo/roommates`, {
-  //     context: this,
-  //     state: 'people',
-  //     asArray: true
-  //   })
-  // }
-  //
-  // componentWillUnmount() {
-  //   base.removeBinding(this.rebaseRef)
-  // }
-
-
-
-
 
   handleClick() {
     event.preventDefault()
@@ -65,13 +48,17 @@ class SideNav extends Component {
 
 addRoom() {
   event.preventDefault()
-  console.log("addRoomBox button is working")
   let input = this.refs.roomInput
-  let addedRoom = input.value
+  let addedRoom = {
+    roomname: input.value,
+    chores: []
+  }
+  console.log("addedRoom is", addedRoom)
   let rooms = this.state.rooms
   this.setState({
     rooms: rooms.concat([addedRoom])
   })
+  hashHistory.push(`/dashboard/${addedRoom.roomname}`)
 }
 
 onRoomClick() {
@@ -79,9 +66,8 @@ onRoomClick() {
   console.log("onRoomClick is working")
 }
 
-
-
   render() {
+
 
     let addRoomBox;
 if (this.state.showAddRoomBox) {
@@ -93,7 +79,9 @@ if (this.state.showAddRoomBox) {
     </form>
   </div>
 }
-console.log(this.state.people.map((person, index) => person.userName));
+
+console.log("this.state.rooms is", this.state.rooms)
+
     return (
       <div className="SideNav">
         ChoreShare
@@ -111,7 +99,18 @@ console.log(this.state.people.map((person, index) => person.userName));
           </div>
             <div className="NavRooms">
               <div>
-                {this.state.rooms.map((room, index) => <div onClick={this.onRoomClick.bind(this)} key={index}><p>{room.key}</p></div>)}
+                {this.state.rooms.map((room, index) =>
+                  <Link
+                    to={`/dashboard/${room.roomname}`}
+                    key={index}
+                  >
+                    <div
+                      onClick={this.onRoomClick.bind(this)}
+                    >
+                      <p>{room.roomname}</p>
+                    </div>
+                  </Link>
+                )}
               </div>
               {addRoomBox}
             </div>

@@ -8,11 +8,18 @@ const base = Rebase.createClass({
     storageBucket: "final-project-34471.appspot.com",
   });
 
+  const peopleinhouse = {
+    iaks1: {
+        displayName: "Linsy Joyner Obama"
+      }
+  }
+
 class Chore extends Component {
   constructor() {
     super();
     this.state = {
-      displayInput: false
+      displayInput: false,
+      claimed: false
     }
   }
 
@@ -42,7 +49,20 @@ class Chore extends Component {
     this.props.deleteChore(this.props.chore.name)
   }
 
+  claimChore(){
+    console.log("displayName is", peopleinhouse.iaks1.displayName)
+    this.setState({
+      claimed: !this.state.claimed
+    })
+  }
+
   render() {
+
+    let choreClaimer = <p>Unclaimed</p>
+    if (this.state.claimed) {
+      choreClaimer = <p>{peopleinhouse.iaks1.displayName}</p>
+    }
+
     let choreInputArea = <div onClick={this.changeToInput.bind(this)} className="ChoreName">
       <p>{this.props.chore.name}</p>
     </div>
@@ -60,7 +80,12 @@ class Chore extends Component {
             {this.props.chore.frequency}
           </div>
         </div>
-        <div className="Avatar">
+        <div className="ChoreRight">
+          <div>
+            AVATAR
+          </div>
+          {choreClaimer}
+          <button onClick={this.claimChore.bind(this)}>Claim this chore</button>
         </div>
       </div>
     );

@@ -20,11 +20,14 @@ class Room extends Component {
   }
 
   componentDidMount() {
-    this.rebaseRef = base.syncState(`houseone/rooms/kitchen/chores`, {
+    let roomname = this.props.room
+    console.log("roomname is", roomname)
+    this.rebaseRef = base.syncState(`houseone/rooms/${roomname}/chores`, {
       context: this,
       state: 'chores',
       asArray: true,
     })
+    console.log("this.state is", this.state)
   }
 
   componentWillUnmount() {
@@ -52,7 +55,8 @@ class Room extends Component {
 }
 
   render() {
-
+    console.log("this.state.people is", this.state.people)
+    console.log("in room component this.props is", this.props)
     return (
         <div className="Room">
           {this.state.chores.map((chore, index) => <Chore chore={chore} deleteChore={this.deleteChore.bind(this)} key={index}/>)}
