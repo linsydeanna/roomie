@@ -1,6 +1,7 @@
 {
   "name": "Final_Project",
   "version": "0.0.1",
+  "homepage": "http://kchambers24.github.io/final-project/tree/Kevin",
   "private": true,
   "devDependencies": {
     "react-scripts": "0.4.3"
