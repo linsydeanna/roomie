@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './styles/RegistrationForm.css';
 import moment from 'moment'
 import Rebase from 're-base'
+import axios from 'axios'
 import {Link} from 'react-router'
 
 const base = Rebase.createClass({
@@ -11,7 +12,6 @@ const base = Rebase.createClass({
     storageBucket: "final-project-34471.appspot.com",
   });
 
-
 class RegistrationForm extends Component {
   constructor() {
     super();
@@ -20,7 +20,6 @@ class RegistrationForm extends Component {
       url: {}
     }
   }
-
 
   componentDidMount() {
     this.rebaseRef = base.syncState(`housetwo/${this.state.user.user.UID}/url`, {
@@ -34,30 +33,29 @@ class RegistrationForm extends Component {
     base.removeBinding(this.rebaseRef)
   }
 
+// Mandrill email sending code
+sendEmail(){
+  axios({
+    method: "POST",
+    url: "https://mandrillapp.com/api/1.0/messages/send.json",
+    data: {
+      "key": "qyGwtP9NlIE7eDer9oa5tQ",
+      "message": {
+        "from_email": "kevin@tiyfinalproject.com",
+        "to": [
+          {
+            "email": this.refs.roommateEmail.value,
 
-  // handleClick(event) {
-  //   event.preventDefault();
-  //   console.log("Is button working")
-  //   this.addUserInfo();
-  //   console.log("Does addUserInfo work")
-  // }
-  //
-  // addUserInfo() {
-  //   event.preventDefault()
-  //   console.log("Adding UserInfo to FireBase")
-  //   let preCInput = this.refs.preferredInput
-  //   let lCInput = this.refs.leastInput
-  //   let peeInput = this.refs.peevesInput
-  //   let addedUserInfo = input.value
-  //   let userInfo = this.state.userInfo
-  //   this.setState({
-  //     userInfo: userInfo.concat([addedUserInfo])
-  //   })
-  // }
-  //
-  //
-
-
+            "type": "to"
+          }
+        ],
+        "subject": "Your personal invite to living better!",
+        "text": "You have been invited to join iRoommates. Enjoy a better way of doing chores Click here to view our app!"
+      }
+    }
+  });
+}
+  //end of email code
 
 render() {
   return (
@@ -93,8 +91,14 @@ render() {
         <button onClick={this.handleClick}>Submit</button>
       </div>
     </Link>
+
+    <div className="emailBox">
+      <p>Enter new roommates email address and send them an invite</p>
+      <input type="text" className="emailInput" placeholder="New roommate" ref="roommateEmail"/>
+      <button onClick={() => this.sendEmail()}>Send Email</button>
     </div>
 
+    </div>
   );
  }
 }

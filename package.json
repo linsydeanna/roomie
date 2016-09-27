@@ -6,6 +6,7 @@
     "react-scripts": "0.4.3"
   },
   "dependencies": {
+    "axios": "^0.14.0",
     "moment": "^2.15.1",
     "re-base": "^2.2.0",
     "react": "^15.3.2",
