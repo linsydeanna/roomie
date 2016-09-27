@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SideNav from './SideNav'
+import TopNav from './TopNav'
 import Room from './room/Room';
 
 class DashboardContainer extends Component {
@@ -7,7 +8,11 @@ class DashboardContainer extends Component {
     return (
       <div className="DashboardContainer">
         <SideNav />
-        <Room />
+        <TopNav />
+        <Room
+          room={this.props.params.room}
+          key={this.props.params.room}
+           />
       </div>
     );
   }

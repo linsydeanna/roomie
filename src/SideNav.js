@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Rebase from 're-base'
-// import {Link} from 'react-router'
+import {Link, hashHistory} from 'react-router'
 import './styles/SideNav.css';
 
 const base = Rebase.createClass({
@@ -21,85 +21,58 @@ class SideNav extends Component {
   }
 
   componentDidMount() {
-    this.rebaseRef = base.syncState(`housetwo/rooms`, {
+    this.rebaseRef = base.syncState(`houseone/rooms`, {
       context: this,
       state: 'rooms',
       asArray: true
     })
-      this.rebaseRef = base.syncState(`housetwo/roommates`, {
+      this.rebaseRef = base.syncState(`houseone/roommates`, {
         context: this,
         state: 'people',
         asArray: true
       })
-
-  }
+    }
 
   componentWillUnmount() {
     base.removeBinding(this.rebaseRef)
   }
 
-
-  // componentDidMount() {
-  //   this.rebaseRef = base.syncState(`housetwo/roommates`, {
-  //     context: this,
-  //     state: 'people',
-  //     asArray: true
-  //   })
-  // }
-  //
-  // componentWillUnmount() {
-  //   base.removeBinding(this.rebaseRef)
-  // }
-
-
-
-
-
   handleClick() {
     event.preventDefault()
-    console.log("Add room button is working")
     this.setState({
       showAddRoomBox: !this.state.showAddRoomBox
     })
   }
 
-addRoom() {
-  event.preventDefault()
-  console.log("addRoomBox button is working")
-  let input = this.refs.roomInput
-  let addedRoom = input.value
-  let rooms = this.state.rooms
-  this.setState({
-    rooms: rooms.concat([addedRoom])
-  })
-}
+  addRoom() {
+    event.preventDefault()
+    let input = this.refs.roomInput
+    let addedRoom = {
+      roomname: input.value,
+      chores: []
+    }
+    let rooms = this.state.rooms
+    this.setState({
+      rooms: rooms.concat([addedRoom])
+    })
+    hashHistory.push(`/dashboard/${addedRoom.roomname}`)
+  }
 
-onRoomClick() {
-  event.preventDefault()
-  console.log("onRoomClick is working")
-}
-
-
+  onRoomClick() {
+    event.preventDefault()
+  }
 
   render() {
-
     let addRoomBox;
-if (this.state.showAddRoomBox) {
-  addRoomBox =
-  <div className="AddRoom">
-    <form onSubmit={this.addRoom.bind(this)}>
-      <input type="text" placeholder="room" ref="roomInput"/>
-      <button>Add room</button>
-    </form>
-  </div>
-}
-console.log(this.state.people.map((person, index) => person.userName));
+    if (this.state.showAddRoomBox) {
+      addRoomBox = <div className="AddRoom"><form onSubmit={this.addRoom.bind(this)}><input type="text" placeholder="room" ref="roomInput"/><button>Add room</button></form></div>
+    }
     return (
       <div className="SideNav">
         ChoreShare
         <div>
           <div className="NavItems">
-            <p>Calendar</p>
+            <Link to="/calendar"><p>Calendar</p></Link>
           </div>
           <div className="NavItems">
             <p>People</p>
@@ -111,7 +84,7 @@ console.log(this.state.people.map((person, index) => person.userName));
           </div>
             <div className="NavRooms">
               <div>
-                {this.state.rooms.map((room, index) => <div onClick={this.onRoomClick.bind(this)} key={index}><p>{room.key}</p></div>)}
+                {this.state.rooms.map((room, index) => <Link to={`/dashboard/${room.roomname}`} key={index}><div onClick={this.onRoomClick.bind(this)}><p>{room.roomname}</p></div></Link>)}
               </div>
               {addRoomBox}
             </div>
