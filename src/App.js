@@ -10,10 +10,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {}
+      user: {},
+      household: ''
     }
     this.handleClick = this.handleClick.bind(this);
     this.authHandler = this.authHandler.bind(this);
+  }
+
+  addHouseholdName(event) {
+    this.setState({
+      household: event.target.value
+    })
   }
 
   authHandler(error, data) {
@@ -26,8 +33,6 @@ class App extends Component {
       })
    // const userAvatar = this.state.user.user.photoURL
      // this.addPhoto()
-      console.log(data.user.photoURL)
-      console.log(data.user.displayName)
       sessionStorage.setItem('currentUser', JSON.stringify(data.user))
        this.context.router.push('/registration')
     }
@@ -37,14 +42,13 @@ class App extends Component {
     event.preventDefault();
     base.authWithOAuthPopup('facebook', this.authHandler)
     .then(() => {
-      base.post(`housetwo/roommates/${this.state.user.uid}`, {
+      base.post(`${this.state.household}/roommates/${this.state.user.uid}`, {
         data: {
          userName: this.state.user.displayName,
          url: this.state.user.photoURL
         },
         then(err){
           if(!err){
-            console.log("beer")
           }
         }
       });
@@ -54,7 +58,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.props.children && React.cloneElement(this.props.children, {onLogin: this.handleClick.bind(this), applicationUser: this.state.user})}
+        {this.props.children && React.cloneElement(this.props.children, {onLogin: this.handleClick.bind(this), addHousehold: this.addHouseholdName.bind(this), applicationUser: this.state.user})}
       </div>
     );
   }
