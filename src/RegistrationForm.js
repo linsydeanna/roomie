@@ -1,5 +1,3 @@
-//mail rest api; f9050504f168667ea6771a3bc53bc724f4cdea8e
-
 import React, { Component } from 'react';
 import './styles/RegistrationForm.css';
 import moment from 'moment'
@@ -14,7 +12,6 @@ const base = Rebase.createClass({
     storageBucket: "final-project-34471.appspot.com",
   });
 
-
 class RegistrationForm extends Component {
   constructor() {
     super();
@@ -24,78 +21,41 @@ class RegistrationForm extends Component {
     }
   }
 
-
   componentDidMount() {
     this.rebaseRef = base.syncState(`housetwo/${this.state.user.user.UID}/url`, {
       context: this,
       state: 'urls',
       asArray: true,
     })
-    // console.log("household1", household)
   }
 
   componentWillUnmount() {
     base.removeBinding(this.rebaseRef)
   }
 
-
-sendEmail() {
+// Mandrill email sending code
+sendEmail(){
   axios({
-    method: 'post',
-    url: 'https://api.sparkpost.com/api/v1/transmissions',
-    headers: {
-    'Authorization': 'f9050504f168667ea6771a3bc53bc724f4cdea8e',
-    'Content-Type': 'application/json'
-  },
+    method: "POST",
+    url: "https://mandrillapp.com/api/1.0/messages/send.json",
     data: {
-        "content": {
-        "from": "tiyfinalproject@gmail.com",
+      "key": "qyGwtP9NlIE7eDer9oa5tQ",
+      "message": {
+        "from_email": "kevin@tiyfinalproject.com",
+        "to": [
+          {
+            "email": this.refs.roommateEmail.value,
+
+            "type": "to"
+          }
+        ],
         "subject": "Your personal invite to living better!",
-        "text": "Click here to view our app"
-      },
-      recipients: [{ "address": this.refs.roommateEmail }]
-   }
- }).then(response => console.log(response))
-      console.log("show me the email");
-
+        "text": "You have been invited to join iRoommates. Enjoy a better way of doing chores Click here to view our app!"
+      }
+    }
+  });
 }
-
-// sendEmail() {
-//   axios({
-//     method: 'post',
-//     url: 'https://api.sparkpost.com/api/v1/transmissions',
-//     data: {
-//       "content": {
-//       "from": "tiyfinalproject@gmail.com",
-//       "subject": "Your personal invite to living better!",
-//       "text": "Click here to view our app"
-//     },
-//     "recipients": [{ "address": this.refs.roommateEmail }]
-//     }
-//   })
-// }
-
-
-
-
-//   https://api.sparkpost.com/api/v1/transmissions \
-//   -H "Authorization: f9050504f168667ea6771a3bc53bc724f4cdea8e" \
-//   -H "Content-Type: application/json" \
-//   -d '{
-//     "content": {
-//       "from": "sandbox@sparkpostbox.com",
-//       "subject": "Thundercats are GO!!!",
-//       "text": "Sword of Omens, give me sight BEYOND sight"
-//     },
-//     "recipients": [{ "address": "tiyfinalproject@gmail.com" }]
-//   }'
-// }
-
-
-
   //end of email code
-
-
 
 render() {
   return (
@@ -138,10 +98,7 @@ render() {
       <button onClick={() => this.sendEmail()}>Send Email</button>
     </div>
 
-
-
     </div>
-
   );
  }
 }
