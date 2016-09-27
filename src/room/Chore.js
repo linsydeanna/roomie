@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Rebase from 're-base'
 import base from '../config/base'
 
 class Chore extends Component {

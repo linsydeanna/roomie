@@ -6,7 +6,13 @@ class Login extends Component {
  render() {
     return (
       <div className="Login">
+        <div>
+        <p>Choose Household Name</p>
+        <input onChange={this.props.addHousehold} type="text" className="answerBox" placeholder="Enter Household Name" ref="houseInput"/>
+        </div>
+        <div>
         <button className="loginBtn" onClick={this.props.onLogin}>Sign in with Facebook</button>
+        </div>
       </div>
     );
   }
