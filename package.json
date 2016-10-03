@@ -13,6 +13,7 @@
     "react-date-picker": "^5.3.28",
     "react-datetime": "^2.6.0",
     "react-dom": "^15.3.2",
+    "react-fontawesome": "^1.2.0",
     "react-router": "^2.8.1"
   },
   "scripts": {

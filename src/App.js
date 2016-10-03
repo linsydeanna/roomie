@@ -3,25 +3,32 @@ import './styles/App.css';
 import base from './config/base'
 
 class App extends Component {
-  getChildContext() {
-    return {applicationUser: this.state.user}
-  }
+ getChildContext() {
+   return {household: this.state.household}
+ }
 
   constructor(props) {
     super(props);
     this.state = {
       user: {},
-      household: ''
+      household: localStorage.household
     }
     this.handleClick = this.handleClick.bind(this);
     this.authHandler = this.authHandler.bind(this);
   }
 
   addHouseholdName(event) {
-    this.setState({
-      household: event.target.value
-    })
+     this.setState(
+       { household: event.target.value },
+       function() {
+         localStorage.setItem('household', this.state.household)
+       })
   }
+
+ componentDidMount() {
+   console.log(localStorage.household);
+     this.setState({household: localStorage.household})
+ }
 
   authHandler(error, data) {
     if (error) {
@@ -31,10 +38,8 @@ class App extends Component {
       this.setState({
         user: data.user
       })
-   // const userAvatar = this.state.user.user.photoURL
-     // this.addPhoto()
       sessionStorage.setItem('currentUser', JSON.stringify(data.user))
-       this.context.router.push('/registration')
+       this.context.router.push(`/dashboard/${this.state.household}`)
     }
   }
 
@@ -42,23 +47,25 @@ class App extends Component {
     event.preventDefault();
     base.authWithOAuthPopup('facebook', this.authHandler)
     .then(() => {
-      base.post(`${this.state.household}/roommates/${this.state.user.uid}`, {
-        data: {
-         userName: this.state.user.displayName,
-         url: this.state.user.photoURL
-        },
-        then(err){
-          if(!err){
-          }
-        }
-      });
+      const loggedInUser = base.auth().currentUser;
+      if (loggedInUser != null) {
+        loggedInUser.providerData.forEach(profile => {
+          sessionStorage.setItem('UserAvatar', (profile.photoURL))
+          base.post(`${this.state.household}/roommates/${this.state.user.uid}`, {
+            data: {
+              url: profile.photoURL,
+              userName: this.state.user.displayName
+            }
+        });
+      })
+    }
     })
   }
 
   render() {
     return (
       <div className="App">
-        {this.props.children && React.cloneElement(this.props.children, {onLogin: this.handleClick.bind(this), addHousehold: this.addHouseholdName.bind(this), applicationUser: this.state.user})}
+        {this.props.children && React.cloneElement(this.props.children, {onLogin: this.handleClick.bind(this), addHousehold: this.addHouseholdName.bind(this), household: this.state.household})}
       </div>
     );
   }
@@ -69,7 +76,7 @@ App.contextTypes = {
 }
 
 App.childContextTypes = {
- applicationUser: React.PropTypes.object.isRequired
+household: React.PropTypes.string
 }
 
 export default App;

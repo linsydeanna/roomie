@@ -1,14 +1,15 @@
 .SideNav {
-  background-color: darkgray;
+  background-color: #262453;
   height: 1000px;
   width: 300px;
 }
 
 p {
   font-size: 18px;
+  color: white;
 }
 
-.NavItems p {
+.NavItems {
   font-weight: bold;
 }
 
