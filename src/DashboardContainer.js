@@ -58,16 +58,17 @@ class DashboardContainer extends Component {
 
   addChore(event) {
     event.preventDefault(event)
-    let chores = this.state.chores
     let choreInput = event.target.elements[0]
     console.log(" choreInput is ", choreInput)
     let updatedRooms = this.state.rooms.map((room) => {
       if (room.roomname === this.props.params.room) {
-        room.chores = []
-        let newChore =
-        {
-          name: choreInput.value
+        if (!room.chores) {
+          room.chores = []
         }
+        let newChore =
+          {
+            name: choreInput.value
+          }
         let newChoresList = room.chores.concat([newChore])
         room.chores = newChoresList
         return room
@@ -155,8 +156,8 @@ sendEmail(){
 }
 
   render() {
-    console.log( "in render, this.props.household is", this.props.household)
-
+    console.log( "in render, this.props is", this.props)
+    console.log(" in dashboardContainer, addChore is ", )
     return (
       <div className="DashboardContainer">
         <SideNav household={this.props.household} handleSubmit={this.addRoom} rooms={this.state.rooms}/>
@@ -164,6 +165,7 @@ sendEmail(){
         <TopNav />
         <Room
           room={this.props.params.room}
+          rooms={this.state.rooms}
           key={this.props.params.room}
           household={this.props.household}
           handleSubmit={this.addChore}

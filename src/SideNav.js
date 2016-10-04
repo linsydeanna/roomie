@@ -13,21 +13,22 @@ class SideNav extends Component {
   }
 
   componentDidMount() {
-     setTimeout(function() { this.rebaseRef = base.syncState(`${this.props.household}/rooms`, {
+     console.log("this.props.household is", this.props.household)
+     this.rebaseRef = base.syncState(`${this.props.household}/rooms`, {
        context: this,
        state: 'rooms',
        asArray: true
-     })}.bind(this), 1000);
-       setTimeout(function() { this.rebaseRef = base.syncState(`${this.props.household}/roommates`, {
+     })
+       this.rebaseRef = base.syncState(`${this.props.household}/roommates`, {
          context: this,
          state: 'people',
          asArray: true
-       })}.bind(this), 1000);
+       })
      }
 
-  componentWillUnmount() {
-    base.removeBinding(this.rebaseRef)
-  }
+   componentWillUnmount() {
+     base.removeBinding(this.rebaseRef)
+   }
 
   handleClick(event) {
     event.preventDefault(event)
@@ -58,7 +59,7 @@ class SideNav extends Component {
           </div>
             <div className="NavRooms">
               <div>
-                {this.props.rooms.map((room, index) => <Link to={`/dashboard/${room.roomname}`} key={index}><div><p>{room.roomname}</p></div></Link>)}
+                {this.props.rooms.map((room, index) => <Link to={`/dashboard/${this.props.household}/${room.roomname}`} key={index}><div><p>{room.roomname}</p></div></Link>)}
               </div>
               {addRoomBox}
             </div>
