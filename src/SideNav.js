@@ -37,6 +37,10 @@ class SideNav extends Component {
     })
   }
 
+  delete(roomName) {
+    this.props.deleteRoom(roomName)
+  }
+
   render() {
     let addRoomBox;
     if (this.state.showAddRoomBox) {
@@ -59,7 +63,9 @@ class SideNav extends Component {
           </div>
             <div className="NavRooms">
               <div>
-                {this.props.rooms.map((room, index) => <Link to={`/dashboard/${this.props.household}/${room.roomname}`} key={index}><div><p>{room.roomname}</p></div></Link>)}
+                {this.props.rooms.map((room, index) => <Link to={`/dashboard/${this.props.household}/${room.roomname}`} key={index}><div><p>{room.roomname}</p>
+                <button onClick={this.delete.bind(this, room.roomname)}><i className="fa fa-trash" aria-hidden="true"></i></button>
+                </div></Link>)}
               </div>
               {addRoomBox}
             </div>

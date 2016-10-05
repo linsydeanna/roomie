@@ -21,6 +21,7 @@ class DashboardContainer extends Component {
     this.deleteChore = this.deleteChore.bind(this)
     this.addEditedChore = this.addEditedChore.bind(this)
     this.claimChore = this.claimChore.bind(this)
+    this.deleteRoom = this.deleteRoom.bind(this)
   }
 
   componentDidMount() {
@@ -56,6 +57,16 @@ class DashboardContainer extends Component {
       rooms: rooms.concat([addedRoom])
     })
     hashHistory.push(`/dashboard/${this.props.household}/${addedRoom.roomname}`)
+  }
+
+  deleteRoom(roomName) {
+    console.log(" deleteRoom is working ")
+    let updatedRooms = this.state.rooms.filter(room => roomName !== room.roomname)
+    console.log(" updatedRooms is ", updatedRooms)
+    this.setState({
+      rooms: updatedRooms
+    })
+    hashHistory.push(`/dashboard/${this.props.household}`)
   }
 
   addChore(event) {
@@ -94,7 +105,11 @@ class DashboardContainer extends Component {
     selectedRoom() {
       if (this.state.rooms.length) {
         let correctRoom = this.state.rooms.filter(this.matchTheRoom)
+        // if (correctRoom.length) {
         return correctRoom[0].chores
+      // } else {
+      //   return correctRoom
+      // }
       } else {
         return []
       }
@@ -192,7 +207,7 @@ sendEmail(){
 
     return (
       <div className="DashboardContainer">
-        <SideNav household={this.props.household} handleSubmit={this.addRoom} rooms={this.state.rooms}/>
+        <SideNav household={this.props.household} handleSubmit={this.addRoom} rooms={this.state.rooms} deleteRoom={this.deleteRoom}/>
         <div className="DashboardRight">
         <TopNav />
           <Room
