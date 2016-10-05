@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import FontAwesome from 'react-fontawesome'
 
 class Chore extends Component {
   constructor(props) {
@@ -17,13 +16,14 @@ class Chore extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.addEditedChore(this.name.value, this.props.chore.key)
+    this.props.addEditedChore(this.name.value, this.props.chore.name)
     this.setState({
       displayInput: !this.state.displayInput
     })
   }
 
   claim() {
+    console.log( " this.props.chore is ", this.props.chore)
     this.props.claimChore(this.props.chore)
     this.setState({
       claimed: !this.state.claimed
@@ -31,7 +31,10 @@ class Chore extends Component {
   }
 
   handleClick(){
-    this.props.deleteChore(this.props.chore.name)
+    console.log (" in chores, this.props.rooms is", this.props.rooms)
+    if (this.props.rooms.length) {
+      this.props.deleteChore(this.props.chore.name)
+    }
   }
 
   render() {
@@ -65,7 +68,7 @@ class Chore extends Component {
           <div className="ChoreName">
             {choreInputArea}
           <button onClick={this.handleClick.bind(this)}>
-            <FontAwesome className="trash"/>
+            <i className="fa fa-trash" aria-hidden="true"></i>
           </button>
           </div>
           <div className="ChoreFrequency">

@@ -12,17 +12,19 @@ class DashboardContainer extends Component {
     this.state = {
       rooms: [],
       chores: [],
-      claimed: false
+      claimed: false,
     }
     this.addRoom = this.addRoom.bind(this)
     this.addChore = this.addChore.bind(this)
-    // this.deleteChore = this.deleteChore.bind(this)
-    // this.addEditedChore = this.addEditedChore.bind(this)
-    // this.claimChore = this.claimChore.bind(this)
+    this.matchTheRoom = this.matchTheRoom.bind(this)
+    this.selectedRoom = this.selectedRoom.bind(this)
+    this.deleteChore = this.deleteChore.bind(this)
+    this.addEditedChore = this.addEditedChore.bind(this)
+    this.claimChore = this.claimChore.bind(this)
   }
 
   componentDidMount() {
-    console.log( "in componentDidMount, this.props.household is", this.props.household)
+    console.log( " in componentDidMount, this.state.rooms is ", this.state.rooms)
     this.rebaseRef = base.syncState(`${this.props.household}/rooms`, {
       context: this,
       state: 'rooms',
@@ -81,59 +83,71 @@ class DashboardContainer extends Component {
     })
   }
 
-  // deleteChore(deletedChore){
-  //   event.preventDefault()
-  //   let chores = this.state.chores
-  //   this.setState({
-  //     chores: chores.filter(chore => deletedChore !== chore.name)
-  //   })
-  // }
+    matchTheRoom(room) {
+      if (room.roomname === this.props.params.room) {
+        return true
+      } else {
+        return false
+      }
+    }
 
-  // addEditedChore(editedChore, chore) {
-  //   event.preventDefault()
-  //   let roomname = this.props.params.room
-  //   base.update(`${this.props.household}/rooms/${roomname}/chores/${chore}`, {
-  //     data: {
-  //       name: editedChore
-  //     }
-  //   })
-  // }
+    selectedRoom() {
+      if (this.state.rooms.length) {
+        let correctRoom = this.state.rooms.filter(this.matchTheRoom)
+        return correctRoom[0].chores
+      } else {
+        return []
+      }
+    }
 
-//   claimChore(claimedChore){
-//     const thisUser = JSON.parse(sessionStorage.getItem('currentUser'))
-//     let claimThatChore = this.state.chores.map(chore => {
-//       if (claimedChore.key === chore.key) {
-//         let chore = {
-//           claimedBy: thisUser.displayName
-//         }
-//         this.setState({
-//         chores: claimThatChore
-//       })
-//     }
-//   })
-// }
 
-//
-//         let roomname = this.props.room
-//         base.update(`${this.props.household}/rooms/${roomname}/chores/${chore.key}`, {
-//           data: {
-//             claimedBy: thisUser.displayName
-//           }
-//         })
-//       if (!this.state.claimed) {
-//         base.update(`${this.props.household}/rooms/${roomname}/chores/${chore.key}`, {
-//           data: {
-//             claimedBy: ''
-//           }
-//         })
-//       }
-//       console.log("this.props.chore.key is", this.props.chore.key)
-//     }
-//   }
-// }
+  deleteChore(deletedChore) {
+    event.preventDefault()
+    let updatedRooms = this.state.rooms.map((room) => {
+      if (room.roomname === this.props.params.room) {
+        let roomChores = room.chores
+        let newChores = roomChores.filter(chore => deletedChore !== chore.name)
+        room.chores = newChores
+        return room
+      } else {
+        return room
+      }
+    })
+    this.setState({
+      rooms: updatedRooms
+    })
+  }
+
+  addEditedChore(editedChore, choreName) {
+    event.preventDefault()
+    let updatedRooms = this.state.rooms.map((room) => {
+      if (room.roomname === this.props.params.room) {
+        let roomChores = room.chores
+        let newChores = roomChores.map((chore) => {
+          if (chore.name === choreName) {
+            chore.name = editedChore
+            return chore
+          } else {
+            return chore
+          }
+        })
+        room.chores = newChores
+        return room
+      } else {
+        return room
+      }
+    })
+    this.setState({
+      rooms: updatedRooms
+    })
+  }
+
+  claimChore(claimedChore){
+    const thisUser = JSON.parse(sessionStorage.getItem('currentUser'))
+    
+}
 
 sendEmail(){
- console.log("beer", this.props)
  axios({
    method: "POST",
    url: "https://mandrillapp.com/api/1.0/messages/send.json",
@@ -156,24 +170,24 @@ sendEmail(){
 }
 
   render() {
-    console.log( "in render, this.props is", this.props)
-    console.log(" in dashboardContainer, addChore is ", )
+
     return (
       <div className="DashboardContainer">
         <SideNav household={this.props.household} handleSubmit={this.addRoom} rooms={this.state.rooms}/>
         <div className="DashboardRight">
         <TopNav />
-        <Room
-          room={this.props.params.room}
-          rooms={this.state.rooms}
-          key={this.props.params.room}
-          household={this.props.household}
-          handleSubmit={this.addChore}
-          chores={this.state.chores}
-          deleteChore={this.deleteChore}
-          addEditedChore={this.addEditedChore}
-          claimChore={this.claimChore}
-           />
+          <Room
+            selectedRoom={this.selectedRoom}
+            room={this.props.params.room}
+            rooms={this.state.rooms}
+            key={this.props.params.room}
+            household={this.props.household}
+            handleSubmit={this.addChore}
+            chores={this.state.chores}
+            deleteChore={this.deleteChore}
+            addEditedChore={this.addEditedChore}
+            claimChore={this.claimChore}
+             />
          <div className="EmailInvite">
                  <p>Enter new roommates email address and send them an invite</p>
                  <input type="text" className="emailInput" placeholder="New roommate" ref="roommateEmail"/>

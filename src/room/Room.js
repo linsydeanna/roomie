@@ -3,11 +3,10 @@ import Chore from './Chore'
 import '../styles/ChoreView.css'
 
 class Room extends Component {
-  render() {
-    console.log(" in room, this.props is ", this.props)
+render() {
     return (
       <div className="Room">
-        {this.props.chores.map((chore, index) => <Chore room={this.props.room} chore={chore} deleteChore={this.props.deleteChore} addEditedChore={this.props.addEditedChore} claimChore={this.props.claimChore} key={index}/>)}
+        {this.props.selectedRoom().map((chore, index) => <Chore rooms={this.props.rooms} room={this.props.room} chore={chore} deleteChore={this.props.deleteChore} addEditedChore={this.props.addEditedChore} claimChore={this.props.claimChore} key={index}/>)}
         <div className="Chore">
           <div className="ChoreLeft">
             <div className="ChoreName">
