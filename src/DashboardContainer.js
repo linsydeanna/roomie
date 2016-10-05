@@ -144,7 +144,26 @@ class DashboardContainer extends Component {
 
   claimChore(claimedChore){
     const thisUser = JSON.parse(sessionStorage.getItem('currentUser'))
-    
+    let updatedRooms = this.state.rooms.map((room) => {
+      if (room.roomname === this.props.params.room) {
+        let roomChores = room.chores
+        let newChores = roomChores.map((chore) => {
+          if (chore.name === claimedChore.name) {
+            chore.claimedBy = thisUser.displayName
+            return chore
+          } else {
+            return chore
+          }
+        })
+          room.chores = newChores
+        return room
+      } else {
+        return room
+      }
+    })
+    this.setState({
+      rooms: updatedRooms
+    })
 }
 
 sendEmail(){
