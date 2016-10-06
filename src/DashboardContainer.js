@@ -66,7 +66,6 @@ class DashboardContainer extends Component {
     this.setState({
       rooms: updatedRooms
     })
-    hashHistory.push(`/dashboard/${this.props.household}`)
   }
 
   addChore(event) {
@@ -105,13 +104,12 @@ class DashboardContainer extends Component {
     selectedRoom() {
       if (this.state.rooms.length) {
         let correctRoom = this.state.rooms.filter(this.matchTheRoom)
-        return correctRoom
+        if (!correctRoom[0].chores) {
+          return []
+        }
         if (correctRoom.length) {
           return correctRoom[0].chores
         } else {
-          return []
-        }
-        if (!correctRoom[0].chores) {
           return []
         }
       } else {
