@@ -50,7 +50,7 @@ class DashboardContainer extends Component {
     event.preventDefault(event)
     let input = event.target.elements[0]
     let addedRoom = {
-      roomname: input.value,
+      roomname: input.value
     }
     let rooms = this.state.rooms
     this.setState({
@@ -105,16 +105,19 @@ class DashboardContainer extends Component {
     selectedRoom() {
       if (this.state.rooms.length) {
         let correctRoom = this.state.rooms.filter(this.matchTheRoom)
-        // if (correctRoom.length) {
-        return correctRoom[0].chores
-      // } else {
-      //   return correctRoom
-      // }
+        return correctRoom
+        if (correctRoom.length) {
+          return correctRoom[0].chores
+        } else {
+          return []
+        }
+        if (!correctRoom[0].chores) {
+          return []
+        }
       } else {
         return []
       }
     }
-
 
   deleteChore(deletedChore) {
     event.preventDefault()
