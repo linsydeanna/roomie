@@ -202,7 +202,7 @@ completeChore(choreStatus, completedChore) {
       let roomChores = room.chores
       let newChores = roomChores.map((chore) => {
         if (chore.name === completedChore.name) {
-          chore.isComplete = choreStatus
+          chore.done = choreStatus
           return chore
         } else {
           return chore
@@ -216,7 +216,10 @@ completeChore(choreStatus, completedChore) {
   })
   this.setState({
     rooms: updatedRooms
-  })
+  },
+  console.log(" updatedRooms is ", updatedRooms))
+  console.log(" choreStatus in parent is ", choreStatus)
+  console.log(" completedChore is ", completedChore)
 }
 
 sendEmail(){

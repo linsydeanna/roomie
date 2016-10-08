@@ -55,12 +55,12 @@ class Chore extends Component {
     this.setState({
       isComplete: true
     })
-    this.props.completeChore(this.state.isComplete, this.props.chore.name)
   }
 
   render() {
     const thisUser = JSON.parse(sessionStorage.getItem('currentUser'))
     const thisUserPhoto = sessionStorage.getItem('UserAvatar')
+    console.log(" this.state.isComplete in child is ", this.state.isComplete)
 
     let dateSelected = <input ref="date"
         type="date"
@@ -80,6 +80,10 @@ class Chore extends Component {
     let checked = <div className="Check" onClick={this.complete.bind(this)}><i className="fa fa-check" aria-hidden="true"></i></div>
 
     if (this.state.isComplete) {
+      this.props.completeChore(this.state.isComplete, this.props.chore)
+    }
+
+    if (this.props.chore.done === true) {
       checked = <div><i className="fa fa-thumbs-up" aria-hidden="true"></i></div>
     }
 
