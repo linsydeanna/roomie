@@ -6,7 +6,9 @@ class Room extends Component {
 render() {
     return (
       <div className="Room">
-        {this.props.selectedRoom().map((chore, index) => <Chore rooms={this.props.rooms} room={this.props.room} chore={chore} deleteChore={this.props.deleteChore} addEditedChore={this.props.addEditedChore} claimChore={this.props.claimChore} key={index}/>)}
+        {this.props.selectedRoom().map((chore, index) => <Chore rooms={this.props.rooms} room={this.props.room} chore={chore} deleteChore={this.props.deleteChore} addEditedChore={this.props.addEditedChore} claimChore={this.props.claimChore}
+        setDueDate={this.props.setDueDate}
+        completeChore={this.props.completeChore} key={index}/>)}
         <div className="Chore">
           <div className="ChoreLeft">
             <div className="ChoreName">

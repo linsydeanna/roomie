@@ -4,7 +4,9 @@ class Chore extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayInput: false
+      displayInput: false,
+      dueDate: false,
+      isComplete: false
     }
   }
 
@@ -23,27 +25,62 @@ class Chore extends Component {
   }
 
   claim() {
-    console.log( " this.props.chore is ", this.props.chore)
     this.props.claimChore(this.props.chore)
     this.setState({
       claimed: !this.state.claimed
     })
   }
 
+  dueDate() {
+    this.props.setDueDate(this.refs.date.value, this.props.chore)
+    this.setState({
+      dueDate: true
+    })
+  }
+
+  editDueDate() {
+    this.setState({
+      dueDate: false
+    })
+  }
+
   handleClick(){
-    console.log (" in chores, this.props.rooms is", this.props.rooms)
     if (this.props.rooms.length) {
       this.props.deleteChore(this.props.chore.name)
     }
+  }
+
+  complete() {
+    console.log("complete is working")
+    this.setState({
+      isComplete: true
+    })
+    this.props.completeChore(this.state.isComplete, this.props.chore.name)
   }
 
   render() {
     const thisUser = JSON.parse(sessionStorage.getItem('currentUser'))
     const thisUserPhoto = sessionStorage.getItem('UserAvatar')
 
+    let dateSelected = <input ref="date"
+        type="date"
+        className="ui-input"
+        onChange={this.dueDate.bind(this)}
+      />
+
+    if (this.state.dueDate) {
+      dateSelected = <div onClick={this.editDueDate.bind(this)}>{this.props.chore.dueDate}</div>
+    }
+
     let choreClaimer = <p>Unclaimed</p>
     if (this.state.claimed) {
       choreClaimer = <p>{thisUser.displayName}</p>
+    }
+
+    let checked = <div className="Check" onClick={this.complete.bind(this)}><i className="fa fa-check" aria-hidden="true"></i></div>
+
+    if (this.state.isComplete) {
+      checked = <div><i className="fa fa-thumbs-up" aria-hidden="true"></i></div>
     }
 
     let choreClaimerAvatar = <div></div>
@@ -65,20 +102,24 @@ class Chore extends Component {
     return (
       <div className="Chore">
         <div className="ChoreLeft">
+          {checked}
           <div className="ChoreName">
             {choreInputArea}
           <button onClick={this.handleClick.bind(this)}>
             <i className="fa fa-trash" aria-hidden="true"></i>
           </button>
           </div>
-          <div className="ChoreFrequency">
+          <div className="ChoreDueDate">
+            {dateSelected}
           </div>
         </div>
         <div className="ChoreRight">
           <div>
-          </div>
           {choreClaimerAvatar}
+          </div>
+          <div>
           {choreClaimer}
+          </div>
           <button onClick={this.claim.bind(this)}>{buttonText}</button>
         </div>
       </div>

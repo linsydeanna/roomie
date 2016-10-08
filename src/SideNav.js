@@ -13,7 +13,6 @@ class SideNav extends Component {
   }
 
   componentDidMount() {
-     console.log("this.props.household is", this.props.household)
      this.rebaseRef = base.syncState(`${this.props.household}/rooms`, {
        context: this,
        state: 'rooms',

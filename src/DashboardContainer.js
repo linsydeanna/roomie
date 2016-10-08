@@ -22,24 +22,16 @@ class DashboardContainer extends Component {
     this.addEditedChore = this.addEditedChore.bind(this)
     this.claimChore = this.claimChore.bind(this)
     this.deleteRoom = this.deleteRoom.bind(this)
+    this.setDueDate = this.setDueDate.bind(this)
+    this.completeChore = this.completeChore.bind(this)
   }
 
   componentDidMount() {
-    console.log( " in componentDidMount, this.state.rooms is ", this.state.rooms)
     this.rebaseRef = base.syncState(`${this.props.household}/rooms`, {
       context: this,
       state: 'rooms',
       asArray: true
     })
-    // const roomname = 'whateve';
-    // let roomname = this.props.params.room
-    // console.log(" in componentDidMount this.props.params.room ", this.props.params.room)
-    // const roomname = this.props.params.room
-    // this.rebaseRef = base.syncState(`${this.props.household}/rooms/${roomname}/chores`, {
-    //   context: this,
-    //   state: 'chores',
-    //   asArray: true,
-    // })
   }
 
   componentWillUnmount() {
@@ -60,9 +52,30 @@ class DashboardContainer extends Component {
   }
 
   deleteRoom(roomName) {
-    console.log(" deleteRoom is working ")
     let updatedRooms = this.state.rooms.filter(room => roomName !== room.roomname)
-    console.log(" updatedRooms is ", updatedRooms)
+    this.setState({
+      rooms: updatedRooms
+    })
+  }
+
+  setDueDate(dateSelected, selectedChore) {
+    let updatedRooms = this.state.rooms.map((room) => {
+      if (room.roomname === this.props.params.room) {
+        let roomChores = room.chores
+        let newChores = roomChores.map((chore) => {
+          if (chore.name === selectedChore.name) {
+            chore.dueDate = dateSelected
+            return chore
+          } else {
+            return chore
+          }
+        })
+          room.chores = newChores
+        return room
+      } else {
+        return room
+      }
+    })
     this.setState({
       rooms: updatedRooms
     })
@@ -182,6 +195,30 @@ class DashboardContainer extends Component {
     })
 }
 
+completeChore(choreStatus, completedChore) {
+  console.log("completeChore is working")
+  let updatedRooms = this.state.rooms.map((room) => {
+    if (room.roomname === this.props.params.room) {
+      let roomChores = room.chores
+      let newChores = roomChores.map((chore) => {
+        if (chore.name === completedChore.name) {
+          chore.isComplete = choreStatus
+          return chore
+        } else {
+          return chore
+        }
+      })
+        room.chores = newChores
+      return room
+    } else {
+      return room
+    }
+  })
+  this.setState({
+    rooms: updatedRooms
+  })
+}
+
 sendEmail(){
  axios({
    method: "POST",
@@ -210,7 +247,9 @@ sendEmail(){
       <div className="DashboardContainer">
         <SideNav household={this.props.household} handleSubmit={this.addRoom} rooms={this.state.rooms} deleteRoom={this.deleteRoom}/>
         <div className="DashboardRight">
-        <TopNav />
+        <TopNav
+         room={this.props.params.room}
+       />
           <Room
             selectedRoom={this.selectedRoom}
             room={this.props.params.room}
@@ -222,6 +261,8 @@ sendEmail(){
             deleteChore={this.deleteChore}
             addEditedChore={this.addEditedChore}
             claimChore={this.claimChore}
+            setDueDate={this.setDueDate}
+            completeChore={this.completeChore}
              />
          <div className="EmailInvite">
                  <p>Enter new roommates email address and send them an invite</p>

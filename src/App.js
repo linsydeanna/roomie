@@ -26,7 +26,6 @@ class App extends Component {
   }
 
  componentWillMount() {
-   console.log(localStorage.household);
      this.setState({household: localStorage.household})
  }
 
