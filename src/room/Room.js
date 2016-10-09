@@ -4,8 +4,12 @@ import '../styles/ChoreView.css'
 
 class Room extends Component {
 
-      // this.refs.input.value = ''
-      // console.log("1")
+  handleSubmit(event) {
+    event.preventDefault()
+    this.props.handleSubmit(event)
+    this.refs.input.value = ''
+    console.log("1")
+  }
 
 render() {
     return (
@@ -17,7 +21,7 @@ render() {
         <div className="Chore">
           <div className="ChoreLeft">
             <div className="ChoreName">
-              <form onSubmit={this.props.handleSubmit}><input ref="input" type="text"/><button type="submit">Add Chore</button></form>
+              <form onSubmit={this.handleSubmit.bind(this)}><input ref="input" type="text"/><button type="submit">Add Chore</button></form>
             </div>
             <div className="ChoreFrequency">
             </div>
