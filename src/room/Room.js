@@ -3,16 +3,21 @@ import Chore from './Chore'
 import '../styles/ChoreView.css'
 
 class Room extends Component {
+
+      // this.refs.input.value = ''
+      // console.log("1")
+
 render() {
     return (
       <div className="Room">
         {this.props.selectedRoom().map((chore, index) => <Chore rooms={this.props.rooms} room={this.props.room} chore={chore} deleteChore={this.props.deleteChore} addEditedChore={this.props.addEditedChore} claimChore={this.props.claimChore}
         setDueDate={this.props.setDueDate}
-        completeChore={this.props.completeChore} key={index}/>)}
+        completeChore={this.props.completeChore}
+        storeClaimState={this.props.storeClaimState} key={index}/>)}
         <div className="Chore">
           <div className="ChoreLeft">
             <div className="ChoreName">
-              <form onSubmit={this.props.handleSubmit}><input type="text"/><button type="submit">Add Chore</button></form>
+              <form onSubmit={this.props.handleSubmit}><input ref="input" type="text"/><button type="submit">Add Chore</button></form>
             </div>
             <div className="ChoreFrequency">
             </div>

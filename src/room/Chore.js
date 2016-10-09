@@ -6,7 +6,8 @@ class Chore extends Component {
     this.state = {
       displayInput: false,
       dueDate: false,
-      isComplete: false
+      isComplete: false,
+      claimed: false
     }
   }
 
@@ -25,7 +26,8 @@ class Chore extends Component {
   }
 
   claim() {
-    this.props.claimChore(this.props.chore)
+    const thisUserPhoto = sessionStorage.getItem('UserAvatar')
+    this.props.claimChore(thisUserPhoto, this.props.chore)
     this.setState({
       claimed: !this.state.claimed
     })
@@ -51,7 +53,6 @@ class Chore extends Component {
   }
 
   complete() {
-    console.log("complete is working")
     this.setState({
       isComplete: true
     })
@@ -59,8 +60,6 @@ class Chore extends Component {
 
   render() {
     const thisUser = JSON.parse(sessionStorage.getItem('currentUser'))
-    const thisUserPhoto = sessionStorage.getItem('UserAvatar')
-    console.log(" this.state.isComplete in child is ", this.state.isComplete)
 
     let dateSelected = <input ref="date"
         type="date"
@@ -74,6 +73,7 @@ class Chore extends Component {
 
     let choreClaimer = <p>Unclaimed</p>
     if (this.state.claimed) {
+      this.props.storeClaimState(this.state.claimed, this.props.chore)
       choreClaimer = <p>{thisUser.displayName}</p>
     }
 
@@ -87,9 +87,10 @@ class Chore extends Component {
       checked = <div><i className="fa fa-thumbs-up" aria-hidden="true"></i></div>
     }
 
+    let avatar = this.props.chore.avatarURL
     let choreClaimerAvatar = <div></div>
-    if (this.state.claimed) {
-      choreClaimerAvatar = <div><img src={thisUserPhoto} alt="choreClaimer"/></div>
+    if (this.props.chore.claimed) {
+      choreClaimerAvatar = <div><img src={avatar} alt="choreClaimer"/></div>
     }
 
     let buttonText = 'Claim this chore'

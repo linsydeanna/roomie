@@ -24,6 +24,7 @@ class DashboardContainer extends Component {
     this.deleteRoom = this.deleteRoom.bind(this)
     this.setDueDate = this.setDueDate.bind(this)
     this.completeChore = this.completeChore.bind(this)
+    this.storeClaimState = this.storeClaimState.bind(this)
   }
 
   componentDidMount() {
@@ -84,7 +85,6 @@ class DashboardContainer extends Component {
   addChore(event) {
     event.preventDefault(event)
     let choreInput = event.target.elements[0]
-    console.log(" choreInput is ", choreInput)
     let updatedRooms = this.state.rooms.map((room) => {
       if (room.roomname === this.props.params.room) {
         if (!room.chores) {
@@ -104,6 +104,7 @@ class DashboardContainer extends Component {
     this.setState({
       rooms: updatedRooms
     })
+    console.log("2")
   }
 
     matchTheRoom(room) {
@@ -171,7 +172,7 @@ class DashboardContainer extends Component {
     })
   }
 
-  claimChore(claimedChore){
+  claimChore(avatar, claimedChore){
     const thisUser = JSON.parse(sessionStorage.getItem('currentUser'))
     let updatedRooms = this.state.rooms.map((room) => {
       if (room.roomname === this.props.params.room) {
@@ -179,6 +180,7 @@ class DashboardContainer extends Component {
         let newChores = roomChores.map((chore) => {
           if (chore.name === claimedChore.name) {
             chore.claimedBy = thisUser.displayName
+            chore.avatarURL = avatar
             return chore
           } else {
             return chore
@@ -193,6 +195,29 @@ class DashboardContainer extends Component {
     this.setState({
       rooms: updatedRooms
     })
+}
+
+storeClaimState(claimedState, claimedChore) {
+  let updatedRooms = this.state.rooms.map((room) => {
+    if (room.roomname === this.props.params.room) {
+      let roomChores = room.chores
+      let newChores = roomChores.map((chore) => {
+        if (chore.name === claimedChore.name) {
+          chore.claimed = claimedState
+          return chore
+        } else {
+          return chore
+        }
+      })
+        room.chores = newChores
+      return room
+    } else {
+      return room
+    }
+  })
+  this.setState({
+    rooms: updatedRooms
+  })
 }
 
 completeChore(choreStatus, completedChore) {
@@ -266,6 +291,7 @@ sendEmail(){
             claimChore={this.claimChore}
             setDueDate={this.setDueDate}
             completeChore={this.completeChore}
+            storeClaimState={this.storeClaimState}
              />
          <div className="EmailInvite">
                  <p>Enter new roommates email address and send them an invite</p>
