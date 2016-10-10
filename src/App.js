@@ -18,15 +18,18 @@ class App extends Component {
   }
 
   addHouseholdName(event) {
-     this.setState(
-       { household: event.target.value },
+     this.setState({
+         household: event.target.value
+       },
        function() {
          localStorage.setItem('household', this.state.household)
        })
   }
 
  componentWillMount() {
-     this.setState({household: localStorage.household})
+     this.setState({
+       household: localStorage.household
+     })
  }
 
   authHandler(error, data) {

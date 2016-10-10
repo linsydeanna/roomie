@@ -58,6 +58,12 @@ class Chore extends Component {
     })
   }
 
+  unclaim() {
+    this.setState({
+      claimed: !this.state.claimed
+    })
+  }
+
   render() {
     const thisUser = JSON.parse(sessionStorage.getItem('currentUser'))
 
@@ -66,7 +72,6 @@ class Chore extends Component {
         className="ui-input"
         onChange={this.dueDate.bind(this)}
       />
-
     if (this.state.dueDate) {
       dateSelected = <div onClick={this.editDueDate.bind(this)}>{this.props.chore.dueDate}</div>
     }
@@ -74,60 +79,70 @@ class Chore extends Component {
     let choreClaimer = <p>Unclaimed</p>
     if (this.state.claimed) {
       this.props.storeClaimState(this.state.claimed, this.props.chore)
-      choreClaimer = <p>{thisUser.displayName}</p>
+      choreClaimer = <p className="claimedText">{thisUser.displayName}</p>
     }
 
     let checked = <div className="Check" onClick={this.complete.bind(this)}><i className="fa fa-check" aria-hidden="true"></i></div>
-
     if (this.state.isComplete) {
       this.props.completeChore(this.state.isComplete, this.props.chore)
     }
-
-    if (this.props.chore.done === true) {
+    if (this.props.chore.done) {
       checked = <div><i className="fa fa-thumbs-up" aria-hidden="true"></i></div>
     }
 
     let avatar = this.props.chore.avatarURL
     let choreClaimerAvatar = <div></div>
     if (this.props.chore.claimed) {
-      choreClaimerAvatar = <div><img src={avatar} alt="choreClaimer"/></div>
+      choreClaimerAvatar = <div><img className="avatar" src={avatar} alt="choreClaimer" width="50" height="66"/></div>
+    }
+    if (!this.state.claimed) {
+      choreClaimerAvatar = <div></div>
     }
 
-    let buttonText = 'Claim this chore'
+    let buttonText = <button className="claimBtns" onClick={this.claim.bind(this)}>Claim this chore</button>
     if (this.state.claimed) {
-      buttonText = 'Unclaim'
+      buttonText = <button className="claimBtns" onClick={this.unclaim.bind(this)}>Unclaim</button>
     }
 
     let choreInputArea = <div onClick={this.changeToInput.bind(this)} className="ChoreName">
-      <p>{this.props.chore.name}</p>
+      <p className="choreInputAreaText">{this.props.chore.name}</p>
     </div>
     if (this.state.displayInput) {
-    choreInputArea = <form onSubmit={this.handleSubmit.bind(this)}><input type="text" ref={(input) => this.name = input}/><button>I'm done editing</button></form>
+    choreInputArea = <form onSubmit={this.handleSubmit.bind(this)}><input type="text" ref={(input) => this.name = input}/><button className="editingBtn">Edit chore</button></form>
     }
     return (
       <div className="Chore">
-        <div className="ChoreLeft">
-          {checked}
+        <div className="itemsLeft">
+          <div className="ChoreLeft">
+            {checked}
+          </div>
+        <div className="firstChoreItems">
           <div className="ChoreName">
             {choreInputArea}
-          <button onClick={this.handleClick.bind(this)}>
-            <i className="fa fa-trash" aria-hidden="true"></i>
-          </button>
           </div>
           <div className="ChoreDueDate">
-            {dateSelected}
+            <p className="choreDateText">Due Date</p>
+              {dateSelected}
           </div>
-        </div>
-        <div className="ChoreRight">
-          <div>
-          {choreClaimerAvatar}
-          </div>
-          <div>
-          {choreClaimer}
-          </div>
-          <button onClick={this.claim.bind(this)}>{buttonText}</button>
         </div>
       </div>
+      <div className="itemsRight">
+        <div className="ChoreRight">
+            <div>
+              {choreClaimerAvatar}
+            </div>
+            <div>
+              {choreClaimer}
+            </div>
+            {buttonText}
+        </div>
+        <div className="trashCan">
+          <button className="trashCanBtn" onClick={this.handleClick.bind(this)}>
+            <i className="fa fa-trash fa-lg" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
     );
   }
 }

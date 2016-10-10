@@ -8,7 +8,6 @@ class Room extends Component {
     event.preventDefault()
     this.props.handleSubmit(event)
     this.refs.input.value = ''
-    console.log("1")
   }
 
 render() {
@@ -21,12 +20,8 @@ render() {
         <div className="Chore">
           <div className="ChoreLeft">
             <div className="ChoreName">
-              <form onSubmit={this.handleSubmit.bind(this)}><input ref="input" type="text"/><button type="submit">Add Chore</button></form>
+              <form className="formChoreInput" onSubmit={this.handleSubmit.bind(this)}><input ref="input" className="choreInput" placeholder="Add a New Chore" type="text"/><button className="choreAddBtn" type="submit"><i className="fa fa-plus" aria-hidden="true"/></button></form>
             </div>
-            <div className="ChoreFrequency">
-            </div>
-          </div>
-          <div className="Avatar">
           </div>
         </div>
       </div>
