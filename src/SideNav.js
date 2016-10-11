@@ -40,10 +40,16 @@ class SideNav extends Component {
     this.props.deleteRoom(roomName)
   }
 
+  handleSubmit(event) {
+    event.preventDefault()
+    this.props.handleSubmit(event)
+    this.refs.input.value = ''
+  }
+
   render() {
     let addRoomBox;
     if (this.state.showAddRoomBox) {
-      addRoomBox = <div className="AddRoom"><form onSubmit={this.props.handleSubmit}><input className="sideNavAddRoomInput" type="text" placeholder="Add Room"/><button className="addRoomBtn"><i className="fa fa-plus" aria-hidden="true"/></button></form></div>
+      addRoomBox = <div className="AddRoom"><form onSubmit={this.handleSubmit.bind(this)}><input ref="input" className="sideNavAddRoomInput" type="text" placeholder="Add Room"/><button className="addRoomBtn"><i className="fa fa-plus" aria-hidden="true"/></button></form></div>
     }
     return (
       <div className="SideNav">

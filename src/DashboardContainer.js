@@ -271,6 +271,7 @@ axios({
     }
     }
   });
+  this.refs.roommateEmail.value = ''
 }
 
   render() {
@@ -299,8 +300,10 @@ axios({
                 <p className="emailTextTitle">Need a ROOMIE?</p>
                 <p className="emailText">Do you have that special roommate in mind? If so, we made inviting them super easy. Enter their email address below, and voila they are invited to your household. </p>
                 <div className="emailInputBtn">
-                  <input className="emailInput" type="text" className="emailInput" placeholder="New roommate" ref="roommateEmail"/>
-                  <br/>
+                  <form>
+                  <input className="emailInput" type="text" placeholder="New roommate" ref="roommateEmail"/>
+                  </form>
+                <br/>
                   <button className="emailBtn" onClick={() => this.sendEmail()}>Send Email</button>
                 </div>
               </div>

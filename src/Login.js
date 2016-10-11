@@ -54,13 +54,13 @@ class Login extends Component {
                 <img src="http://i66.tinypic.com/a4lts5.png" alt="Dont be lazy" height="199" width="200"/>
                 <p className="choreText">Dust The House</p>
               </li>
-              <li className="smallerCleaningImages"><img src="http://i68.tinypic.com/2v1m9h2.png" alt="Dont be lazy" height="199" width="200"/>
+              <li className="smallerCleaningImages"><img src="http://i68.tinypic.com/2v1m9h2.png" alt="Dont be lazytwo" height="199" width="200"/>
               <p className="choreText">Take Out The Trash</p>
               </li>
-              <li className="smallerCleaningImages"><img src="http://i63.tinypic.com/33o3yhw.png" alt="Dont be lazy" height="199" width="200"/>
+              <li className="smallerCleaningImages"><img src="http://i63.tinypic.com/33o3yhw.png" alt="Dont be lazythree" height="199" width="200"/>
               <p className="choreText">Clean The Kitchen</p>
               </li>
-              <li className="smallerCleaningImages"><img src="http://i67.tinypic.com/1zo86f5.png" alt="Dont be lazy" height="199" width="200"/>
+              <li className="smallerCleaningImages"><img src="http://i67.tinypic.com/1zo86f5.png" alt="Dont be lazyfour" height="199" width="200"/>
               <p className="choreText">Water The Plants</p>
               </li>
             </ul>
@@ -72,25 +72,25 @@ class Login extends Component {
         </div>
         <div className="Team" id="team">
           <div className="teamTextHeader">
-            <img src="http://i68.tinypic.com/ot0lc3.png" alt="Profile Picture"/>
+            <img src="http://i68.tinypic.com/ot0lc3.png" alt="Profile"/>
           </div>
           <div className="profileBox">
             <div className="bioBox">
 
-              <img src="http://i66.tinypic.com/a2sl0j.png" alt="Profile Picture" height="300" width="279"/>
+              <img src="http://i66.tinypic.com/a2sl0j.png" alt="Profile Two" height="300" width="279"/>
 
             </div>
             <div className="profileBox">
-              <img src="http://i68.tinypic.com/2ihuv0h.png" alt="Profile Picture" height="352" width="498"/>
+              <img src="http://i68.tinypic.com/2ihuv0h.png" alt="Profile Three" height="352" width="498"/>
             </div>
             <div className="bioBox">
 
-              <img src="http://i67.tinypic.com/2e39zt5.png" alt="Profile Picture" height="300" width="279"/>
+              <img src="http://i67.tinypic.com/2e39zt5.png" alt="Profile Four" height="300" width="279"/>
 
             </div>
           </div>
           <div className="teamFooter">
-            <img src="http://i66.tinypic.com/jqkv82.png" alt="Profile Picture" height="64" width="800"/>
+            <img src="http://i66.tinypic.com/jqkv82.png" alt="Profile Five" height="64" width="800"/>
           </div>
         </div>
         <div className="contactFooter" id="Contact">
