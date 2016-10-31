@@ -46,21 +46,20 @@ class Login extends Component {
         </div>
         <div className="bodyBox">
           <div className="bodyTitle">
-            <p className="solutionText">A Simple Solution for All Your Roommate Needs</p>
-            <p className="bodySecondText">Co-Habitation. Simplified.</p></div>
+            <p className="solutionText">Co-Habitation Simplified</p></div>
           <div className="loginBody">
             <ul className="cleaningImages">
               <li className="smallerCleaningImages">
-                <img src="http://i66.tinypic.com/a4lts5.png" alt="Dont be lazy" height="199" width="200"/>
+                <img src="http://i66.tinypic.com/a4lts5.png" alt="Dont be lazy" height="260" width="260"/>
                 <p className="choreText">Dust The House</p>
               </li>
-              <li className="smallerCleaningImages"><img src="http://i68.tinypic.com/2v1m9h2.png" alt="Dont be lazytwo" height="199" width="200"/>
+              <li className="smallerCleaningImages"><img src="http://i68.tinypic.com/2v1m9h2.png" alt="Dont be lazytwo" height="260" width="260"/>
               <p className="choreText">Take Out The Trash</p>
               </li>
-              <li className="smallerCleaningImages"><img src="http://i63.tinypic.com/33o3yhw.png" alt="Dont be lazythree" height="199" width="200"/>
+              <li className="smallerCleaningImages"><img src="http://i63.tinypic.com/33o3yhw.png" alt="Dont be lazythree" height="260" width="260"/>
               <p className="choreText">Clean The Kitchen</p>
               </li>
-              <li className="smallerCleaningImages"><img src="http://i67.tinypic.com/1zo86f5.png" alt="Dont be lazyfour" height="199" width="200"/>
+              <li className="smallerCleaningImages"><img src="http://i67.tinypic.com/1zo86f5.png" alt="Dont be lazyfour" height="260" width="260"/>
               <p className="choreText">Water The Plants</p>
               </li>
             </ul>
@@ -75,13 +74,10 @@ class Login extends Component {
             <img src="http://i68.tinypic.com/ot0lc3.png" alt="Profile"/>
           </div>
           <div className="profileBox">
-            <div className="bioBox">
+            <div className="bioBox1">
 
               <img src="http://i66.tinypic.com/a2sl0j.png" alt="Profile Two" height="300" width="279"/>
 
-            </div>
-            <div className="profileBox">
-              <img src="http://i68.tinypic.com/2ihuv0h.png" alt="Profile Three" height="352" width="498"/>
             </div>
             <div className="bioBox">
 

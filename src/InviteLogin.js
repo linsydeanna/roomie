@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './styles/Login.css';
-// import './styles/App.css';
 
 class InviteLogin extends Component {
   render() {

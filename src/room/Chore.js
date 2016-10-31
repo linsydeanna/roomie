@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class Chore extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -105,11 +106,15 @@ class Chore extends Component {
     }
 
     let choreInputArea = <div onClick={this.changeToInput.bind(this)} className="ChoreName">
-      <p className="choreInputAreaText">{this.props.chore.name}</p>
-    </div>
+    <p className="choreInputAreaText">{this.props.chore.name}</p></div>
+
     if (this.state.displayInput) {
-    choreInputArea = <form onSubmit={this.handleSubmit.bind(this)}><input type="text" ref={(input) => this.name = input}/><button className="editingBtn">Edit chore</button></form>
+
+      choreInputArea = <form onSubmit={this.handleSubmit.bind(this)}><input type="text"
+      ref={(input) => this.name = input}/><button className="editingBtn">Edit chore</button></form>
     }
+
+
     return (
       <div className="Chore">
         <div className="itemsLeft">

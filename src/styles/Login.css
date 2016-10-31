@@ -1,6 +1,10 @@
 html {
   font-family: 'Questrial', sans-serif;
 }
+
+body {
+  background: #f8f8f8;
+}
 button {
   font-family: 'Questrial', sans-serif;
 }
@@ -186,7 +190,7 @@ padding-right: 6px;
 .bodyBox {
   font-family: 'Questrial', sans-serif;
   /*background: url(http://i65.tinypic.com/2z8u4b4.jpg);*/
-  background: url(http://i63.tinypic.com/eq9r1u.png);
+  /*background: url(http://i63.tinypic.com/eq9r1u.png);*/
   background-repeat: no-repeat;
   background-size: cover;
   /*padding-bottom: 45px;*/
@@ -203,6 +207,7 @@ padding-right: 6px;
   /*background: url(http://i65.tinypic.com/ety97o.png);*/
   height: 420px;
   font-family: 'Questrial', sans-serif;
+  margin-top: -10px;
 
 }
 .householdSignInBox {
@@ -252,6 +257,11 @@ padding-right: 6px;
   border-radius: 5px;
   background-color: white;*/
 }
+
+.bioBox1 {
+padding-right: 219px;
+}
+
 p.teamBios {
   margin-left: 0;
   padding-bottom: 10px;
@@ -341,6 +351,7 @@ p.choreText {
 }
 .teamFooter {
   text-align: center;
+  padding-top: 20px;
 }
 p.bodyParagraph {
   margin: 0px;
@@ -365,11 +376,9 @@ p.paragraphTitle {
   padding-bottom: 10px;
 }
 p.solutionText {
-  font-size: 2em;
-  margin: 0;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  color: black;
+  font-size: 3em;
+  margin: 100px 0px 0px;
+  color: #0fb0bb
 }
 p.loginTextHeader {
   margin: 0;
